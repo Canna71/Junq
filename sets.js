@@ -56,11 +56,6 @@ var sets;
         //TODO: try indexOf
         Set.prototype.contains = function (element) {
             return (this.set.indexOf(element) >= 0);
-            // var l=this.set.length
-            // for(var i=0; i<l;i++){
-            //     if(this.set[i]===element) return true;
-            // }
-            // return false;
         };
 
         Set.prototype.add = function (element) {
