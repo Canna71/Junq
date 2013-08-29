@@ -1,5 +1,5 @@
 JUNQ
 ====
 
-A library for doying lazy operations on collections in JavaScript
+A library for doing lazy operations on collections in JavaScript
 -----------------------------------------------------------------
