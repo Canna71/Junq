@@ -57,9 +57,6 @@ var junq = (function (undefined) {
         return junq(junq.append(junq(o)).to(this));
     };
 
-
-
-
     wrapper.prototype.first = function (f) {
         return junq.first(this, f);
     };
@@ -68,6 +65,13 @@ var junq = (function (undefined) {
         return junq.any(this, f);
     };
 
+    wrapper.prototype.all = function (f) {
+        return junq.all(this, f);
+    };
+
+    wrapper.prototype.sum = function () {
+        return junq.sum(this);
+    };
 
     wrapper.prototype.min = function (comparison) {
         return junq.min(this, comparison);
@@ -82,6 +86,18 @@ var junq = (function (undefined) {
 
     wrapper.prototype.contains = function (val, eq) {
         return junq.contains(this, val, eq);
+    };
+
+    wrapper.prototype.take = wrapper.prototype.top = function (num) {
+        return junq.take(this,num);
+    };
+
+    wrapper.prototype.last  = function () {
+        return junq.last(this);
+    };
+
+    wrapper.prototype.nth  = function (num) {
+        return junq.nth(this,num);
     };
 
     //junq.prototype.init.prototype = junq.prototype;
@@ -244,8 +260,34 @@ var junq = (function (undefined) {
         return undefined;
     };
 
+    junq.last = function (enumerable, predicate) {
+        var f = predicate || trueConstant;
+        var e = junq.enumerate(enumerable);
+        var val = undefined;
+        while (e.moveNext()) {
+           val = e.getCurrent();
+        }
+        return val;
+    };
+
     junq.any = function (enumerable, predicate) {
         return junq.first(enumerable, predicate) !== undefined;
+    };
+
+    junq.all = function (enumerable, predicate) {
+        var e = junq.enumerate(enumerable);
+        while (e.moveNext()) {
+            if (!predicate(e.getCurrent())) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    junq.sum = function (enumerable) {
+        return junq.aggregate(enumerable, function (acc, x) {
+            return acc + x;
+        },0);
     };
 
     junq.min = function (enumerable, comparison) {
@@ -289,6 +331,22 @@ var junq = (function (undefined) {
             }
         });
     };
+
+    junq.take = junq.top =  function (enumerable, top) {
+        var e = junq.enumerate(enumerable);
+        return junq({
+            getCurrent: function () {
+                return e.getCurrent();
+            },
+            moveNext: function () {
+                return (top--) > 0 && e.moveNext();
+            }
+        });
+    };
+
+    junq.nth = function(enumerable,num){
+        return junq.take(enumerable,num).last();
+    }
 
     //nested "classes"
     junq.ArrayEnumerator = (function () {
