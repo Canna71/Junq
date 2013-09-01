@@ -118,6 +118,9 @@ var junq = (function (undefined) {
             return o;
         }
 
+        if(typeof (o) === 'string'){
+            return junq.enumerate(arguments);
+        }
 
         if (Array.isArray(o) || o.hasOwnProperty('length')) {
             return new junq.ArrayEnumerator(o);

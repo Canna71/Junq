@@ -1,4 +1,4 @@
-﻿/* Junq library v 1.0.0.0
+/* Junq library v 1.0.0.0
  Copyright Gabriele Cannata 2013
  Sets extensions
  */
@@ -56,12 +56,28 @@ var sets;
         //TODO: try indexOf
         Set.prototype.contains = function (element) {
             return (this.set.indexOf(element) >= 0);
+            // var l=this.set.length
+            // for(var i=0; i<l;i++){
+            //     if(this.set[i]===element) return true;
+            // }
+            // return false;
         };
 
         Set.prototype.add = function (element) {
-            if (!this.contains(element))
+
+            if (!this.contains(element)){
                 this.set.push(element);
-            return this;
+                return true;
+            }
+        };
+
+        Set.prototype.addSet = function (other) {
+            var done = false;
+            var self = this;
+            other.forEach(function (e) {
+                done = done || self.add(e);
+            });
+            return done;
         };
 
         Set.prototype.remove = function (element) {
@@ -69,21 +85,22 @@ var sets;
             for (var i = 0; i < l; i++) {
                 if (this.set[i] === element) {
                     this.set.splice(i, 1);
-                    break;
+                    return true;
                 }
             }
-            return this;
+            return false;
         };
 
         Set.prototype.union = function (other) {
 
             var res = this.clone();
+            var done = false;
             if (isSet(other)) {
                 other.forEach(function (e) {
-                    res.add(e);
+                    done = done || res.add(e);
                 });
             } else {
-                res.add(other);
+                done = res.add(other);
             }
 
             return res;
@@ -159,3 +176,5 @@ var sets;
     sets.Set = Set;
 
 })(sets || (sets = {}));
+
+if (typeof(module) !== 'undefined') { module.exports = sets; }
