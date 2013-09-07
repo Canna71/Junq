@@ -53,7 +53,7 @@ var sets;
             this.set.forEach(func);
             return this;
         };
-        //TODO: try indexOf
+
         Set.prototype.contains = function (element) {
             return (this.set.indexOf(element) >= 0);
             // var l=this.set.length
