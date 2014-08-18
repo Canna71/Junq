@@ -1,5 +1,5 @@
 /* Junq library v 1.0.0.0
- Copyright Gabriele Cannata 2013
+ Copyright Gabriele Cannata 2013-2014
  Sets extensions
  */
 

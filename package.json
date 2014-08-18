@@ -1,0 +1,25 @@
+{
+  "name": "junq",
+  "version": "1.0.1",
+  "description": "A library for doing lazy operations on collections in JavaScript",
+  "main": "junq.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Canna71/Junq.git"
+  },
+  "keywords": [
+    "collections",
+    "iterator",
+    "functional",
+    "linq"
+  ],
+  "author": "Gabriele Cannata",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Canna71/Junq/issues"
+  },
+  "homepage": "https://github.com/Canna71/Junq"
+}
