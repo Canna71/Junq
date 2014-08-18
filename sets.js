@@ -97,7 +97,7 @@ var sets;
             var done = false;
             if (isSet(other)) {
                 other.forEach(function (e) {
-                    done = done || res.add(e);
+                    done = res.add(e)  || done;
                 });
             } else {
                 done = res.add(other);
