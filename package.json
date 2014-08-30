@@ -16,7 +16,7 @@
     "functional",
     "linq"
   ],
-  "author": "Gabriele Cannata",
+  "author": "Gabriele Cannata <gcannata@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Canna71/Junq/issues"

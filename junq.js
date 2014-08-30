@@ -1,5 +1,5 @@
 ﻿/* Junq library v 1.0.0.0
-Copyright Gabriele Cannata 2013-2014
+ Copyright Gabriele Cannata 2013-2014
  */
 
 var junq = (function (undefined) {
@@ -19,13 +19,13 @@ var junq = (function (undefined) {
         return this;
     };
 
-   
+
 
     var junq = function (o) {
         return new wrapper(o);
     };
 
-
+    junq.identity = identity;
 
     wrapper.prototype.getEnumerator = function () {
         return junq.enumerate(this._o);
@@ -100,6 +100,13 @@ var junq = (function (undefined) {
         return junq.nth(this,num);
     };
 
+    wrapper.prototype.odd  = function () {
+        return junq(junq.odd(this));
+    };
+    wrapper.prototype.even  = function () {
+        return junq(junq.even(this));
+    };
+
     //junq.prototype.init.prototype = junq.prototype;
 
     //static methods 
@@ -155,6 +162,31 @@ var junq = (function (undefined) {
             },
             getCurrent: function () {
                 return e.getCurrent();
+            }
+        });
+    };
+
+    junq.even = function(enumerable){
+        return junq.odd(enumerable, true);
+    }
+
+    junq.odd = function odd(enumerable, even){
+        var odd=even | false;
+        var enumerator = junq.enumerate(enumerable);
+        return ({
+            moveNext: function () {
+                while (enumerator.moveNext()) {
+
+                    if(odd=!odd){
+                        return true;
+                    }
+
+
+                }
+                return false;
+            },
+            getCurrent: function () {
+                return enumerator.getCurrent();
             }
         });
     };
@@ -268,7 +300,7 @@ var junq = (function (undefined) {
         var e = junq.enumerate(enumerable);
         var val = undefined;
         while (e.moveNext()) {
-           val = e.getCurrent();
+            val = e.getCurrent();
         }
         return val;
     };
@@ -349,7 +381,7 @@ var junq = (function (undefined) {
 
     junq.nth = function(enumerable,num){
         return junq.take(enumerable,num).last();
-    }
+    };
 
     //nested "classes"
     junq.ArrayEnumerator = (function () {
@@ -386,7 +418,7 @@ var junq = (function (undefined) {
             this._step = step;
         }
         RangeEnumerator.prototype.moveNext = function () {
-            
+
             if (this._length > 0) {
                 this._length--;
                 this._current += this._step;
